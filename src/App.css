@@ -1,0 +1,9 @@
+.App {
+  text-align: center;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
