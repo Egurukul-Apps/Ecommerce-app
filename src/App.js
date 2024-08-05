@@ -1,7 +1,6 @@
-// src/App.js
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import AppRoutes from './routes/AppRoutes';
 import './App.css';

@@ -11,5 +11,4 @@ export const API_ENDPOINTS = {
 
 export const APP_CONFIG = {
   FEATURED_PRODUCTS_LIMIT: 4,
-  // Add other app-wide configuration variables here
 };

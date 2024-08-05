@@ -8,30 +8,23 @@ import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 import Profile from '../pages/Profile/Profile';
 import Settings from '../pages/Settings/Settings';
 import Products from '../pages/Products/Products';
-import ProductDetails from '../pages/Products/ProductDetails';
-
+import ProductDetail from '../pages/Products/ProductDetail'; // Import ProductDetail
 const PrivateRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
-
 const AppRoutes = () => (
   <Routes>
     <Route path="/login" element={<Login />} />
     <Route path="/register" element={<Register />} />
     <Route path="/forgot-password" element={<ForgotPassword />} />
-    <Route path="/dashboard" element={
-      <PrivateRoute>
-        <Dashboard />
-      </PrivateRoute>
-    }>
+    <Route path="/dashboard" element={<PrivateRoute> <Dashboard /> </PrivateRoute>}>
       <Route path="profile" element={<Profile />} />
       <Route path="settings" element={<Settings />} />
       <Route path="products" element={<Products />} />
-      <Route path="products/:id" element={<ProductDetails />} /> 
+      <Route path="products/:productId" element={<ProductDetail />} />
     </Route>
     <Route path="/" element={<Navigate to="/dashboard" replace />} />
   </Routes>
 );
-
 export default AppRoutes;
