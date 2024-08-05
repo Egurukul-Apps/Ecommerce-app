@@ -8,6 +8,7 @@ import ForgotPassword from '../pages/ForgotPassword/ForgotPassword';
 import Profile from '../pages/Profile/Profile';
 import Settings from '../pages/Settings/Settings';
 import Products from '../pages/Products/Products';
+import ProductDetails from '../pages/Products/ProductDetails';
 
 const PrivateRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -27,6 +28,7 @@ const AppRoutes = () => (
       <Route path="profile" element={<Profile />} />
       <Route path="settings" element={<Settings />} />
       <Route path="products" element={<Products />} />
+      <Route path="products/:id" element={<ProductDetails />} /> 
     </Route>
     <Route path="/" element={<Navigate to="/dashboard" replace />} />
   </Routes>

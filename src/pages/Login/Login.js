@@ -31,7 +31,6 @@ function Login() {
         navigate('/'); // Redirect to home page after Google login
       } catch (error) {
         console.error('Google login failed', error);
-        // Handle Google login error
       }
     },
     onError: () => console.log('Google Login Failed'),
