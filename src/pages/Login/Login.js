@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { setUser, setToken, setIsAuthenticated } from '../redux/authSlice';
+import { setUser, setToken, setIsAuthenticated } from '../../redux/authSlice';
 import axios from 'axios';
 import { useGoogleLogin } from '@react-oauth/google';
+import { API_ENDPOINTS } from '../../config';
 import './Login.css';
 
 function Login() {
@@ -14,6 +15,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
   };
 
   const googleLogin = useGoogleLogin({
@@ -26,9 +28,10 @@ function Login() {
         dispatch(setUser(userInfo.data));
         dispatch(setToken(tokenResponse.access_token));
         dispatch(setIsAuthenticated(true));
-        navigate('/dashboard');
+        navigate('/'); // Redirect to home page after Google login
       } catch (error) {
         console.error('Google login failed', error);
+        // Handle Google login error
       }
     },
     onError: () => console.log('Google Login Failed'),
@@ -36,7 +39,7 @@ function Login() {
 
   return (
     <div className="login-form">
-      <h2>Login</h2>
+      <h2>Login to Your Account</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -57,9 +60,9 @@ function Login() {
       <button onClick={() => googleLogin()} className="google-btn">
         Sign in with Google
       </button>
-      {/* <p>
+      <p>
         <Link to="/forgot-password">Forgot Password?</Link>
-      </p> */}
+      </p>
       <p>
         Don't have an account? <Link to="/register">Register</Link>
       </p>

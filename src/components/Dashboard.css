@@ -1,9 +1,0 @@
-.dashboard {
-    display: flex;
-  }
-  
-  .dashboard-content {
-    flex-grow: 1;
-    margin-left: 250px; /* Same as the width of the side navigation */
-    padding: 20px;
-  }
