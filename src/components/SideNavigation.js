@@ -17,7 +17,8 @@ function SideNavigation() {
         <li><Link to="/dashboard">Dashboard</Link></li>
         <li><Link to="/dashboard/profile">Profile</Link></li>
         <li><Link to="/dashboard/settings">Settings</Link></li>
-        <li><Link to="/dashboard/products">Products</Link></li> {/* New Category */}
+        <li><Link to="/dashboard/products">Products</Link></li>
+        <li><Link to="/dashboard/categories">Categories</Link></li> 
         <li><button onClick={handleLogout}>Logout</button></li>
       </ul>
     </nav>

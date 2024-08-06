@@ -1,0 +1,32 @@
+.categories-page {
+    padding: 20px;
+    margin-left: 170px; 
+  }
+  
+  .category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .category-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: calc(25% - 20px);
+    text-align: center;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .category-card h3 {
+    margin: 0;
+    font-size: 18px;
+  }
