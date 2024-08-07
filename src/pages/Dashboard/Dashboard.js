@@ -8,8 +8,11 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <SideNavigation />
-      <div className="content">
-        <Outlet />
+      <div className="dashboard-content">
+        <TopBar />
+        <div className="main-content">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

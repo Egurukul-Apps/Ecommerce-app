@@ -1,20 +1,46 @@
 .side-nav {
   width: 250px;
-  background-color: #2c3e50; /* Dark blue color, matching the TopBar */
+  background-color: #2c3e50;
   color: white;
   height: 100vh;
-  padding-top: 20px;
+  padding-top: 0;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-container {
+  padding: 4px;
+  text-align: center;
+  background-color: #34495e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  max-width: 20%;
+  height: auto;
+  max-height: 60px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .side-nav ul {
   list-style-type: none;
   padding: 0;
+  margin-top: 20px;
+  flex-grow: 1;
 }
 
 .side-nav ul li {
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .side-nav ul li a, .side-nav ul li button {
@@ -27,9 +53,7 @@
   display: block;
   text-align: left;
   font-size: 16px;
+  width: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.side-nav ul li a:hover, .side-nav ul li button:hover {
-  background-color: #34495e; /* Slightly lighter shade for hover effect */
-  border-radius: 4px;
-}

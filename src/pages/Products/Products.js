@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchProducts, fetchCategories, fetchProductsByCategory } from '../../redux/productSlice';
-import Spinner from '../../components/Spinner'; // Import Spinner component
+import { fetchProducts, fetchCategories, fetchProductsByCategory, setSearchTerm } from '../../redux/productSlice';
+import Spinner from '../../components/Spinner';
 import './Products.css';
 
 const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { items: products, categories, status, error } = useSelector((state) => state.products);
+  const { items: products, categories, status, error, searchTerm } = useSelector((state) => state.products);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortOption, setSortOption] = useState('default');
+  const [localSearchTerm, setLocalSearchTerm] = useState(searchTerm);
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchCategories());
   }, [dispatch]);
+
+  useEffect(() => {
+    setLocalSearchTerm(searchTerm);
+  }, [searchTerm]);
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -28,6 +33,15 @@ const Products = () => {
 
   const handleSortChange = (option) => {
     setSortOption(option);
+  };
+
+  const handleSearchChange = (e) => {
+    setLocalSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setSearchTerm(localSearchTerm));
   };
 
   const handleClick = (productId) => {
@@ -49,15 +63,25 @@ const Products = () => {
     }
   };
 
+  const filterProducts = (products) => {
+    return products.filter(product => 
+      (product.title && product.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  };
+  
+
   if (status === 'loading') return <Spinner />; 
   if (status === 'failed') return <div>Error: {error}</div>;
 
-  const sortedProducts = sortProducts(products);
+  const filteredProducts = filterProducts(products);
+  const sortedProducts = sortProducts(filteredProducts);
 
   return (
     <div className="products-page">
       <h2>Products</h2>
       <div className="filters">
+        
         <div className="category-filter">
           <select value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
             <option value="all">All Categories</option>
@@ -67,6 +91,17 @@ const Products = () => {
               </option>
             ))}
           </select>
+        </div>
+        <div className="search-filter">
+          <form onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={localSearchTerm}
+              onChange={handleSearchChange}
+            />
+            <button type="submit">Search</button>
+          </form>
         </div>
         <div className="sort-filter">
           <select value={sortOption} onChange={(e) => handleSortChange(e.target.value)}>
