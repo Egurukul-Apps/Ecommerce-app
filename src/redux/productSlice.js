@@ -34,12 +34,21 @@ export const searchProducts = createAsyncThunk(
   }
 );
 
+export const fetchProductById = createAsyncThunk(
+  'products/fetchProductById',
+  async (productId) => {
+    const response = await axios.get(`${API_ENDPOINTS.PRODUCTS}/${productId}`);
+    return response.data;
+  }
+);
+
 const productSlice = createSlice({
   name: 'products',
   initialState: {
     items: [],
     filteredItems: [],
     categories: [],
+    currentProduct: null,
     status: 'idle',
     error: null,
     searchTerm: '',
@@ -78,6 +87,17 @@ const productSlice = createSlice({
       .addCase(searchProducts.fulfilled, (state, action) => {
         state.items = action.payload;
         state.filteredItems = action.payload;
+      })
+      .addCase(fetchProductById.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchProductById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.currentProduct = action.payload;
+      })
+      .addCase(fetchProductById.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
       });
   },
 });

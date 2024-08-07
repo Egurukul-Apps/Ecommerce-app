@@ -9,7 +9,8 @@ import Profile from '../pages/Profile/Profile';
 import Settings from '../pages/Settings/Settings';
 import Products from '../pages/Products/Products';
 import ProductDetail from '../pages/Products/ProductDetail';
-import Categories from '../pages/Categories/Categories'; // Import the new Categories component
+import Categories from '../pages/Categories/Categories';
+import Cart from '../pages/Cart/Cart'; // Import the new Cart component
 
 const PrivateRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -26,7 +27,8 @@ const AppRoutes = () => (
       <Route path="settings" element={<Settings />} />
       <Route path="products" element={<Products />} />
       <Route path="products/:productId" element={<ProductDetail />} />
-      <Route path="categories" element={<Categories />} /> {/* Add this new route */}
+      <Route path="categories" element={<Categories />} />
+      <Route path="cart" element={<Cart />} /> {/* Add this new route */}
     </Route>
     <Route path="/" element={<Navigate to="/dashboard" replace />} />
   </Routes>
