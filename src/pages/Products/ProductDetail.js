@@ -7,7 +7,6 @@ import './ProductDetail.css';
 
 const ProductDetail = () => {
   const { productId } = useParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentProduct, status, error } = useSelector((state) => state.products);
 
@@ -17,7 +16,6 @@ const ProductDetail = () => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(currentProduct));
-    navigate('/dashboard/cart');
   };
 
   if (status === 'loading') {
@@ -39,6 +37,7 @@ const ProductDetail = () => {
       <p>{currentProduct.description}</p>
       <p>${currentProduct.price}</p>
       <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
+      <button onClick={handleAddToCart} className="add-to-cart-btn">Buy Now</button>
     </div>
   );
 };
