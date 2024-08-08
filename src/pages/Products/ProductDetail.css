@@ -46,7 +46,7 @@
 }
 
 .add-to-cart-btn:hover {
-    background-color: blue;
+    background-color: rgb(8, 8, 237);
 }
 
 .buy-now-btn {
@@ -61,7 +61,7 @@
 }
 
 .buy-now-btn:hover {
-    background-color: blue;
+    background-color: rgb(15, 15, 233);
 }
 .loading {
     text-align: center;
