@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProductById } from '../../redux/productSlice';
 import { addToCart } from '../../redux/cartSlice';
+
 import './ProductDetail.css';
 
 const ProductDetail = () => {
@@ -15,7 +17,11 @@ const ProductDetail = () => {
   }, [dispatch, productId]);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(currentProduct));
+    if(currentProduct) {
+      dispatch(addToCart(currentProduct));
+    } else {
+      console.error('Cannot add to cart: Product is undefined or null.');
+    }
   };
 
   if (status === 'loading') {
@@ -33,11 +39,10 @@ const ProductDetail = () => {
   return (
     <div className="product-detail">
       <h2>{currentProduct.title}</h2>
-      <img src={currentProduct.image} alt={currentProduct.title} />
+      <img src={currentProduct.image} alt={currentProduct.title} className="product-detail-image" />
       <p>{currentProduct.description}</p>
       <p>${currentProduct.price}</p>
       <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
-      <button onClick={handleAddToCart} className="add-to-cart-btn">Buy Now</button>
     </div>
   );
 };
