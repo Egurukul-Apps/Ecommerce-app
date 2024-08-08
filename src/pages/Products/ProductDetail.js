@@ -1,39 +1,48 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom'; 
-import { API_ENDPOINTS } from '../../config';
-import './ProductDetail.css'; 
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchProductById } from '../../redux/productSlice';
+import { addToCart } from '../../redux/cartSlice';
+
+import './ProductDetail.css';
 
 const ProductDetail = () => {
-  const { productId } = useParams(); 
-  const [product, setProduct] = useState(null);
+  const { productId } = useParams();
+  const dispatch = useDispatch();
+  const { currentProduct, status, error } = useSelector((state) => state.products);
 
   useEffect(() => {
-    axios.get(`${API_ENDPOINTS.PRODUCTS}/${productId}`)
-      .then(response => setProduct(response.data))
-      .catch(error => console.error('Error fetching product details:', error));
-  }, [productId]);
+    dispatch(fetchProductById(productId));
+  }, [dispatch, productId]);
 
   const handleAddToCart = () => {
-    console.log('Product added to cart:', product);
+    if(currentProduct) {
+      dispatch(addToCart(currentProduct));
+    } else {
+      console.error('Cannot add to cart: Product is undefined or null.');
+    }
   };
 
-  if (!product) {
-    return <div className="loading">Loading...</div>;
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'failed') {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!currentProduct) {
+    return <div>Product not found</div>;
   }
 
   return (
     <div className="product-detail">
-      <h2 className="product-title">{product.title}</h2>
-      <img src={product.image} alt={product.title} className="product-image" />
-      <p className="product-description">{product.description}</p>
-      <p className="product-price">${product.price}</p>
-      <button className="add-to-cart-btn" onClick={handleAddToCart}>
-        Add to Cart
-      </button>
-      <button className="buy-now-btn" onClick={handleAddToCart}>
-        Buy Now
-      </button>
+      <h2>{currentProduct.title}</h2>
+      <img src={currentProduct.image} alt={currentProduct.title} className="product-detail-image" />
+      <p>{currentProduct.description}</p>
+      <p>${currentProduct.price}</p>
+      <button onClick={handleAddToCart} className="add-to-cart-btn">Add to Cart</button>
     </div>
   );
 };
