@@ -1,11 +1,21 @@
 import React from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { increaseQuantity,decreaseQuantity,removeFromCart } from '../../redux/cartSlice';
+import { increaseQuantity,decreaseQuantity,removeFromCart, setNavigation, clearNavigation } from '../../redux/cartSlice';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleCheckout = () => {
+    dispatch(setNavigation('/dashboard/checkout'));
+    dispatch(clearNavigation()); 
+    navigate('/dashboard/checkout'); 
+  };
+
+  
 
   return (
     <div className="cart">
@@ -29,6 +39,7 @@ const Cart = () => {
               </div>
             </li>
           ))}
+          <button onClick={handleCheckout} className="checkout-btn">Checkout</button>
         </ul>
       )}
     </div>
