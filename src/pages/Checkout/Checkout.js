@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './Checkout.css';
+import { selectCartItems } from '../Cart/cartSelectors';
 
 const Checkout = () => {
-  const cartItems = useSelector((state) => state.cart.items);
-
+  const cartItems = useSelector(selectCartItems);
 
   return (
     <div className="checkout">
@@ -35,21 +35,28 @@ const Checkout = () => {
             <label>ZIP Code</label>
             <input type="text" required />
           </div>
+          <button type="submit" className="submit-btn">Submit</button>
         </form>
       </div>
 
       <div className="order-summary">
         <h2>Order Summary</h2>
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id} className="order-summary-item">
-              <span>{item.title}</span>
-              <span>${item.price} x {item.quantity}</span>
-            </li>
-          ))}
-        </ul>
-        <button className="complete-payment-btn">Complete Payment</button>
-      </div>
+        {cartItems.length > 0 ? (
+          <ul>
+            {cartItems.map((item) => (
+              <li key={item.id} className="order-summary-item">
+                <span>{item.title}</span>
+                <span>${item.price} x {item.quantity}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Your cart is empty</p>
+        )}
+        {cartItems.length > 0 && (
+          <button className="complete-payment-btn">Complete Payment</button>
+        )}
+        </div>
     </div>
   );
 };

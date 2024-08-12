@@ -4,7 +4,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: [],
-    navigateTo: false,
+    shouldNavigate: null,
   },
   reducers: {
     addToCart: (state, action) => {
@@ -33,13 +33,14 @@ const cartSlice = createSlice({
       state.items = state.items.filter(item => item.id !== action.payload);
     },
     setNavigation: (state, action) => {
-      state.navigateTo = action.payload;
+      state.shouldNavigate = action.payload;
     },
     clearNavigation: (state) => {
-      state.navigateTo = null;
+      state.shouldNavigate = null;
     },
   },
 });
 
 export const { addToCart, increaseQuantity, decreaseQuantity, removeFromCart, setNavigation, clearNavigation } = cartSlice.actions;
 export default cartSlice.reducer;
+
