@@ -125,6 +125,30 @@
   transform: scale(0.95);
 }
 
+.checkout-btn {
+  width: 30%; 
+  padding: 0.75rem; 
+  background-color: #28a745; 
+  color: white;
+  border: none;
+  border-radius: 0.25rem; 
+  cursor: pointer;
+  font-size: 1.125rem; 
+  transition: background-color 0.3s, transform 0.2s; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin-top: 2rem; 
+}
+
+.checkout-btn:hover {
+  background-color: #218838; 
+}
+
+.checkout-btn:active {
+  transform: scale(0.98); 
+}
+
 
 @media (max-width: 37.5rem) {
   .cart-item {

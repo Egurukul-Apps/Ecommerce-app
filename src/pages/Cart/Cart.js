@@ -1,11 +1,25 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import { increaseQuantity,decreaseQuantity,removeFromCart } from '../../redux/cartSlice';
+import { useNavigate } from 'react-router-dom';
+import { increaseQuantity,decreaseQuantity,removeFromCart, setNavigation, clearNavigation } from '../../redux/cartSlice';
+import { ROUTES } from './routes';
 import './Cart.css';
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleCheckout = () => {
+    dispatch(setNavigation(ROUTES.CHECKOUT));
+    navigate(ROUTES.CHECKOUT); 
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearNavigation());
+    };
+  }, [dispatch]);
 
   return (
     <div className="cart">
@@ -29,7 +43,8 @@ const Cart = () => {
               </div>
             </li>
           ))}
-        </ul>
+          <button onClick={handleCheckout} className="checkout-btn" type="button">Checkout</button>
+          </ul>
       )}
     </div>
   );
